@@ -13,12 +13,12 @@ stages:
     steps:
     - task: CopyFiles@2
       inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)/NAV'
+        SourceFolder: '$(System.DefaultWorkingDirectory)/'
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
         OverWrite: true
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
+        ArtifactName: 'NAV'
         publishLocation: 'Container'
