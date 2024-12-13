@@ -20,5 +20,5 @@ stages:
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'NAV1'
+        ArtifactName: 'drop'
         publishLocation: 'Container'
