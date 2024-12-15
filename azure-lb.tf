@@ -41,7 +41,7 @@ resource "azurerm_network_interface" "AZ-NAV-App-NIC" {
 
   ip_configuration {
     name                          = "ipconfig${count.index}"
-    subnet_id                     = azurerm_subnet.AZ-NAV-vNet-App
+    subnet_id                     = azurerm_subnet.AZ-NAV-vNet-App.id
     private_ip_address_allocation = "Dynamic"
     primary = true
   }
