@@ -35,6 +35,13 @@ resource "azurerm_subnet" "AZ-NAV-vNet-App" {
   resource_group_name  = data.azurerm_resource_group.Dev-RG.name
   virtual_network_name = azurerm_virtual_network.NAV_vNet.name
   address_prefixes     = var.NAV_vNet_App_Address_Space
+}
+
+resource "azurerm_subnet" "AZ-NAV-vNet-SQL" {
+  name                 = var.NAV_vnet_SQL_Name
+  resource_group_name  = data.azurerm_resource_group.Dev-RG.name
+  virtual_network_name = azurerm_virtual_network.NAV_vNet.name
+  address_prefixes     = var.NAV_vNet_SQL_Address_Space
 
   delegation {
     name = "managedinstancedelegation"
@@ -44,13 +51,6 @@ resource "azurerm_subnet" "AZ-NAV-vNet-App" {
       actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action", "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"]
     }
   }
-}
-
-resource "azurerm_subnet" "AZ-NAV-vNet-SQL" {
-  name                 = var.NAV_vnet_SQL_Name
-  resource_group_name  = data.azurerm_resource_group.Dev-RG.name
-  virtual_network_name = azurerm_virtual_network.NAV_vNet.name
-  address_prefixes     = var.NAV_vNet_SQL_Address_Space
 }
 
 resource "azurerm_network_security_group" "AZ-NAV-JMP-NSG" {
