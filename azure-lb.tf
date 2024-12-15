@@ -134,3 +134,11 @@ resource "azurerm_lb_outbound_rule" "AZ-NAV-LB_lboutbound_rule" {
   protocol                = "Tcp"
   backend_address_pool_id = azurerm_lb_backend_address_pool.AZ-NAV-LB_Pool.id
 }
+
+# Associate Network Interface to the Backend Pool of the Load Balancer
+resource "azurerm_network_interface_backend_address_pool_association" "AZ-NAV-LB-Pool" {
+  count                   = 2
+  network_interface_id    = azurerm_network_interface.AZ-NAV-App-NIC[count.index].id
+  ip_configuration_name   = "ipconfig${count.index}"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.AZ-NAV-LB_Pool.id
+}
