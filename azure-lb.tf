@@ -91,3 +91,42 @@ resource "azurerm_virtual_machine_extension" "AZ-NAV-App-Extension" {
 SETTINGS
 
 }
+
+# Create Public Load Balancer
+resource "azurerm_lb" "AZ-NAV-LB" {
+  name                = var.load_balancer_name
+  location            = data.azurerm_resource_group.Dev-RG.location
+  resource_group_name = data.azurerm_resource_group.Dev-RG.name
+  sku                 = "Standard"
+  frontend_ip_configuration {
+    name                 = var.public_ip_name
+    public_ip_address_id = azurerm_public_ip.LB_Public_IP.id
+  }
+}
+resource "azurerm_lb_backend_address_pool" "AZ-NAV-LB_Pool" {
+  loadbalancer_id      = azurerm_lb.AZ-NAV-LB.id
+  name                 = "NAV-LB-Pool"
+}
+resource "azurerm_lb_probe" "AZ-NAV-LB_Probe" {
+  loadbalancer_id     = azurerm_lb.AZ-NAV-LB.id
+  name                = "NAV-LB-Probe"
+  port                = 80
+}
+resource "azurerm_lb_rule" "AZ-NAV-LB_Rule" {
+  loadbalancer_id                = azurerm_lb.AZ-NAV-LB.id
+  name                           = "NAV-LB-Rule1"
+  protocol                       = "Tcp"
+  frontend_port                  = 80
+  backend_port                   = 80
+  disable_outbound_snat          = true
+  frontend_ip_configuration_name = var.public_ip_name
+  probe_id                       = azurerm_lb_probe.AZ-NAV-LB_Probe.id
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.AZ-NAV-LB_Pool.id]
+}
+resource "azurerm_lb_outbound_rule" "AZ-NAV-LB_lboutbound_rule" {
+  name                    = "NAV-LB-Outbound"
+  loadbalancer_id         = azurerm_lb.AZ-NAV-LB.id
+  protocol                = "Tcp"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.AZ-NAV-LB_Pool.id
+}
+
