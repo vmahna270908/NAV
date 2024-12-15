@@ -122,7 +122,7 @@ resource "azurerm_subnet_route_table_association" "AZ-NAV-SQL-routetable-Attach"
 }
 
 resource "azurerm_mssql_managed_instance" "AZ-NAV-SQL" {
-  name                = "managedsqlinstance"
+  name                = "managedsqlinstance1"
   location                      = data.azurerm_resource_group.Dev-RG.location
   resource_group_name           = data.azurerm_resource_group.Dev-RG.name
 
@@ -140,4 +140,3 @@ resource "azurerm_mssql_managed_instance" "AZ-NAV-SQL" {
     azurerm_subnet_route_table_association.AZ-NAV-SQL-routetable-Attach,
   ]
 }
-#
