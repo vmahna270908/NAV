@@ -38,6 +38,6 @@ resource "azurerm_virtual_network" "NAV_vNet" {
 resource "azurerm_subnet" "AZ-NAV-vNet-MGM" {
   name                 = var.NAV_vnet_MGM_Name
   resource_group_name  = data.azurerm_resource_group.Dev-RG.name
-  virtual_network_name = data.azurerm_virtual_network.NAV_vNet.name
+  virtual_network_name = azurerm_virtual_network.NAV_vNet.name
   address_prefixes     = var.NAV_vNet_MGM_Address_Space
 }
