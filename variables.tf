@@ -129,3 +129,15 @@ variable "password" {
   default     = "Microsoft@123"
   description = "The password for the local account that will be created on the new VM."
 }
+
+variable "load_balancer_name" {
+  type        = string
+  default     = "AZ-NAV-LB"
+  description = "Load Balancer Name"
+}
+
+variable "public_ip_name" {
+  type        = string
+  default     = "AZ-NAV-LB-IP"
+  description = "Load Balancer Public IP"
+}
