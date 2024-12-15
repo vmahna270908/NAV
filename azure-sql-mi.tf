@@ -133,7 +133,7 @@ resource "azurerm_mssql_managed_instance" "AZ-NAV-SQL" {
   vcores             = 4
 
   administrator_login          = "mradministrator"
-  administrator_login_password = "thisIsDog11"
+  administrator_login_password = "MySQLMI-270908@"
 
   depends_on = [
     azurerm_subnet_network_security_group_association.AZ-NAV-SQL-NSG-Attach,
