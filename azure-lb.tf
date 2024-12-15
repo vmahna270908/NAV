@@ -26,8 +26,8 @@ resource "azurerm_subnet_network_security_group_association" "AZ-NAV-LB-NSG-Atta
 # Create Public IP for Load Balancer
 resource "azurerm_public_ip" "my_public_ip" {
   name                = var.public_ip_name
-  location            = azurerm_resource_group.my_resource_group.location
-  resource_group_name = azurerm_resource_group.my_resource_group.name
+  location            = data.azurerm_resource_group.Dev-RG.location
+  resource_group_name = data.azurerm_resource_group.Dev-RG.name
   allocation_method   = "Static"
   sku                 = "Standard"
 }
