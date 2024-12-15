@@ -5,7 +5,7 @@ resource "azurerm_network_interface" "AZ-NAV-JMP1-NIC" {
 
   ip_configuration {
     name                          = "JumpServer1"
-    subnet_id                     = azurerm_subnet.AZ-NAV-vNet-LB.id
+    subnet_id                     = azurerm_subnet.AZ-NAV-vNet-MGM.id
     private_ip_address_allocation = "Dynamic"
   }
 }
@@ -38,6 +38,8 @@ resource "azurerm_windows_virtual_machine" "AZ-NAV-JMP1" {
     type = "Jump Server"
   }
 }
+
+
 
 
 
