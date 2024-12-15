@@ -20,6 +20,7 @@ provider "azurerm" {
 #Data for the Resource Group
 data "azurerm_resource_group" "Dev-RG" {
   name = "Dev-RG"
+  location = "Canada Central"
 }
 
 #vNet Creation for the Dev-RG Resource Group
