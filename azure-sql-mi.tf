@@ -137,6 +137,6 @@ resource "azurerm_mssql_managed_instance" "AZ-NAV-SQL" {
 
   depends_on = [
     azurerm_subnet_network_security_group_association.AZ-NAV-SQL-NSG-Attach,
-    azurerm_subnet_route_table_association.AZ-NAV-SQL-routetable,
+    azurerm_subnet_route_table_association.AZ-NAV-SQL-routetable-Attach,
   ]
 }
