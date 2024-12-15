@@ -63,3 +63,9 @@ variable "JumpServer1_NIC" {
   default     = "AZ-NAV-JMP1-NIC"
   description = "Jump Server1 NIC"
 }
+
+variable "JumpServer1_Name" {
+  type        = string
+  default     = "AZ-NAV-JMP1"
+  description = "Jump Server1 Name"
+}

@@ -43,3 +43,31 @@ resource "azurerm_subnet" "AZ-NAV-vNet-SQL" {
   virtual_network_name = azurerm_virtual_network.NAV_vNet.name
   address_prefixes     = var.NAV_vNet_SQL_Address_Space
 }
+
+resource "azurerm_network_security_group" "AZ-NAV-JMP-NSG" {
+  name                = "AZ-NAV-JMP-NSG"
+  location            = data.azurerm_resource_group.Dev-RG.location
+  resource_group_name = data.azurerm_resource_group.Dev-RG.name
+
+  security_rule {
+    name                       = "RDP"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "3389"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  tags = {
+    environment = "Production"
+    project = "NAV"
+  }
+}
+
+resource "azurerm_subnet_network_security_group_association" "AZ-NAV-JMP-NSG-Attach" {
+  subnet_id                 = azurerm_subnet.AZ-NAV-vNet-MGM.id
+  network_security_group_id = azurerm_network_security_group.AZ-NAV-JMP-NSG.id
+}
