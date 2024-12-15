@@ -47,14 +47,6 @@ resource "azurerm_network_interface" "AZ-NAV-App-NIC" {
   }
 }
 
-# Associate Network Interface to the Backend Pool of the Load Balancer
-resource "azurerm_network_interface_backend_address_pool_association" "AZ-NAV-LB-Pool-Attach" {
-  count                   = 2
-  network_interface_id    = azurerm_network_interface.AZ-NAV-App-NIC[count.index].id
-  ip_configuration_name   = "ipconfig${count.index}"
-  backend_address_pool_id = azurerm_lb_backend_address_pool.AZ-NAV-LB_Pool.id
-}
-
 # Create Virtual Machine
 resource "azurerm_linux_virtual_machine" "AZ-NAV-App-Servers" {
   count                 = 2
@@ -116,6 +108,7 @@ resource "azurerm_lb" "AZ-NAV-LB" {
 resource "azurerm_lb_backend_address_pool" "AZ-NAV-LB_Pool" {
   loadbalancer_id      = azurerm_lb.AZ-NAV-LB.id
   name                 = "NAV-LB-Pool"
+  virtual_network_id = azurerm_virtual_network.NAV_vNet.id
 }
 
 resource "azurerm_lb_probe" "AZ-NAV-LB_Probe" {
