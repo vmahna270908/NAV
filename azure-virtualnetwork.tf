@@ -41,3 +41,24 @@ resource "azurerm_subnet" "AZ-NAV-vNet-MGM" {
   virtual_network_name = azurerm_virtual_network.NAV_vNet.name
   address_prefixes     = var.NAV_vNet_MGM_Address_Space
 }
+
+resource "azurerm_subnet" "AZ-NAV-vNet-LB" {
+  name                 = var.NAV_vnet_LB_Name
+  resource_group_name  = data.azurerm_resource_group.Dev-RG.name
+  virtual_network_name = azurerm_virtual_network.NAV_vNet.name
+  address_prefixes     = var.NAV_vNet_LB_Address_Space
+}
+
+resource "azurerm_subnet" "AZ-NAV-vNet-App" {
+  name                 = var.NAV_vnet_App_Name
+  resource_group_name  = data.azurerm_resource_group.Dev-RG.name
+  virtual_network_name = azurerm_virtual_network.NAV_vNet.name
+  address_prefixes     = var.NAV_vNet_App_Address_Space
+}
+
+resource "azurerm_subnet" "AZ-NAV-vNet-SQL" {
+  name                 = var.NAV_vnet_SQL_Name
+  resource_group_name  = data.azurerm_resource_group.Dev-RG.name
+  virtual_network_name = azurerm_virtual_network.NAV_vNet.name
+  address_prefixes     = var.NAV_vNet_SQL_Address_Space
+}
