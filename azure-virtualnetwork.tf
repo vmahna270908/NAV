@@ -34,4 +34,10 @@ resource "azurerm_virtual_network" "NAV_vNet" {
   project = "NAV"
   }
 }
-
+#Subnet Creation
+resource "azurerm_subnet" "AZ-NAV-vNet-MGM" {
+  name                 = "NAV_vnet_MGM_Name"
+  resource_group_name  = data.azurerm_resource_group.Dev-RG.name
+  virtual_network_name = azurerm_virtual_network.NAV_vNet
+  address_prefixes     = var.NAV_vNet_MGM_Address_Space
+}
