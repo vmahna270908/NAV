@@ -81,3 +81,51 @@ variable "JumpServer2_Name" {
   default     = "AZ-NAV-JMP2"
   description = "Jump Server2 Name"
 }
+
+variable public_ip_name {
+  type        = string
+  default     = "LB-public-ip"
+  description = "Name of the Public IP."
+}
+
+variable "network_interface_name" {
+  type        = string
+  default     = "AZ-NAV-App-NIC"
+  description = "Name of the Network Interface."  
+}
+
+variable "virtual_machine_name" {
+  type        = string
+  default     = "AZ-NAV-App"
+  description = "Web Server Name"
+}
+
+variable "virtual_machine_size" {
+  type        = string
+  default     = "Standard_B2s"
+  description = "Size or SKU of the Virtual Machine."
+}
+
+variable "disk_name" {
+  type        = string
+  default     = "OS-disk"
+  description = "Name of the OS disk of the Virtual Machine."
+}
+
+variable "redundancy_type" {
+  type        = string
+  default     = "Standard_LRS"
+  description = "Storage redundancy type of the OS disk."
+}
+
+variable "username" {
+  type        = string
+  default     = "Skywalker"
+  description = "The username for the local account that will be created on the new VM."
+}
+
+variable "password" {
+  type        = string
+  default     = "Microsoft@123"
+  description = "The password for the local account that will be created on the new VM."
+}
