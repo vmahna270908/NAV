@@ -100,7 +100,7 @@ resource "azurerm_lb" "AZ-NAV-LB" {
   sku                 = "Standard"
 
   frontend_ip_configuration {
-    name                 = var.public_ip_name
+    name                 = data.LB_Public_IP.name
     public_ip_address_id = azurerm_public_ip.LB_Public_IP.id
   }
 }
@@ -123,7 +123,7 @@ resource "azurerm_lb_rule" "AZ-NAV-LB_Rule" {
   frontend_port                  = 80
   backend_port                   = 80
   disable_outbound_snat          = true
-  frontend_ip_configuration_name = var.public_ip_name
+  frontend_ip_configuration_name = data.LB_Public_IP.name
   probe_id                       = azurerm_lb_probe.AZ-NAV-LB_Probe.id
   backend_address_pool_ids       = [azurerm_lb_backend_address_pool.AZ-NAV-LB_Pool.id]
 }
