@@ -133,8 +133,4 @@ resource "azurerm_lb_outbound_rule" "AZ-NAV-LB_lboutbound_rule" {
   loadbalancer_id         = azurerm_lb.AZ-NAV-LB.id
   protocol                = "Tcp"
   backend_address_pool_id = azurerm_lb_backend_address_pool.AZ-NAV-LB_Pool.id
-
-  frontend_ip_configuration {
-    name = var.public_ip_name
-  }
 }
