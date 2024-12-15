@@ -57,3 +57,9 @@ variable "NAV_vNet_SQL_Address_Space" {
   default     = ["192.168.0.24/29"]
   description = "SQL Address Space"
 }
+
+variable "JumpServer1_NIC" {
+  type        = string
+  default     = "AZ-NAV-JMP1-NIC"
+  description = "Jump Server1 NIC"
+}
