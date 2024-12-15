@@ -1,6 +1,6 @@
 variable "NAV_vnet_Name" {
   type        = string
-  default     = "NAV_vNet"
+  default     = "AZ-NAV-vNet"
   description = "vNet1 Name"
 }
 

@@ -20,14 +20,13 @@ provider "azurerm" {
 #Data for the Resource Group
 data "azurerm_resource_group" "Dev-RG" {
   name = "Dev-RG"
-  location = "Canada Central"
 }
 
 #vNet Creation for the Dev-RG Resource Group
 resource "azurerm_virtual_network" "NAV_vNet" {
   name                = var.NAV_vnet_Name
-  location            = data.azurerm_resource_group.Dev-RG
-  resource_group_name = data.azurerm_resource_group.Dev-RG
+  location            = data.azurerm_resource_group.Dev-RG.location
+  resource_group_name = data.azurerm_resource_group.Dev-RG.name
   address_space       = var.NAV_vNet_Address_Space
   tags = {
   type = "vNet"
