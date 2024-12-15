@@ -82,12 +82,6 @@ variable "JumpServer2_Name" {
   description = "Jump Server2 Name"
 }
 
-variable public_ip_name {
-  type        = string
-  default     = "LB-public-ip"
-  description = "Name of the Public IP."
-}
-
 variable "network_interface_name" {
   type        = string
   default     = "AZ-NAV-App-NIC"
