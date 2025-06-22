@@ -83,7 +83,7 @@ resource "azurerm_network_security_rule" "allow_management_outbound" {
 }
 resource "azurerm_network_security_rule" "allow_misubnet_outbound" {
   name                        = "allow_misubnet_outbound"
-  priority                    = 200
+  priority                    = 250
   direction                   = "Outbound"
   access                      = "Allow"
   protocol                    = "*"
