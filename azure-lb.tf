@@ -76,7 +76,7 @@ resource "azurerm_linux_virtual_machine" "AZ-NAV-App-Servers" {
 }
 
 # Enable virtual machine extension and install Nginx
-resource "azurerm_virtual_machine_extension" "AZ-NAV-App-Extension" {
+/*resource "azurerm_virtual_machine_extension" "AZ-NAV-App-Extension" {
   count                = 2
   name                 = "Nginx"
   virtual_machine_id   = azurerm_linux_virtual_machine.AZ-NAV-App-Servers[count.index].id
@@ -90,7 +90,7 @@ resource "azurerm_virtual_machine_extension" "AZ-NAV-App-Extension" {
  }
 SETTINGS
 
-}
+}*/
 
 # Create Public Load Balancer
 resource "azurerm_lb" "AZ-NAV-LB" {
