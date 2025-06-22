@@ -54,7 +54,7 @@ variable "NAV_vnet_SQL_Name" {
 
 variable "NAV_vNet_SQL_Address_Space" {
   type        = list(string)
-  default     = ["192.168.0.32/28"]
+  default     = ["192.168.0.32/27"]
   description = "SQL Address Space"
 }
 
