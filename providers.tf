@@ -5,13 +5,20 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "3.0.0"
+      version = "4.33.0"
     }
-  }
-  backend "azurerm" {
-  }   
+  } 
 }
 
+# Configure the backend for storing Terraform state
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "terraform-state-rg"
+    storage_account_name = "tfstatestoragecloud"
+    container_name       = "tfstate"
+    key                  = "nav.tfstate"
+  }
+}
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
   features {}
