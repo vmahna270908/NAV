@@ -186,3 +186,87 @@ resource "azurerm_monitor_metric_alert" "cpu_alerts" {
   }
 }
 
+resource "azurerm_monitor_metric_alert" "storage_alerts" {
+  for_each            = local.static_storage_alerts
+  name                = "storage-alert-${each.key}"
+  resource_group_name = data.azurerm_resource_group.Dev-RG.name
+  scopes              = [azurerm.mssql_managed_instance.AZ-NAV-SQL.id]
+  description         = "Alert when SQL MI storage usage exceeds ${each.key} MB"
+  severity            = each.value
+  frequency           = "PT5M"
+  window_size         = "PT1H"
+  enabled             = true
+
+  criteria {
+    metric_namespace = "Microsoft.Sql/managedInstances"
+    metric_name      = "storage_space_used_mb"
+    aggregation      = "Average"
+    operator         = "GreaterThan"
+    threshold        = tonumber(each.key)
+  }
+
+  action {
+    action_group_id = azurerm_monitor_action_group.email_alert_group.id
+  }
+
+  tags = {
+    environment = "production"
+  }
+}
+
+resource "azurerm_monitor_metric_alert" "dynamic_alerts" {
+  for_each            = local.dynamic_metrics
+  name                = "dynamic-alert-${each.key}"
+  resource_group_name = data.azurerm_resource_group.Dev-RG.name
+  scopes              = [azurerm.mssql_managed_instance.AZ-NAV-SQL.id]
+  description         = "Dynamic alert for ${each.value}"
+  severity            = 2
+  frequency           = "PT5M"
+  window_size         = "PT1H"
+  enabled             = true
+
+  dynamic_criteria {
+    metric_namespace       = "Microsoft.Sql/managedInstances"
+    metric_name            = each.key
+    aggregation            = "Average"
+    operator               = "GreaterThan"
+    alert_sensitivity      = "Medium"
+    evaluation_total_count = 4
+  }
+
+  action {
+    action_group_id = azurerm_monitor_action_group.email_alert_group.id
+  }
+
+  tags = {
+    environment = "production"
+  }
+}
+
+resource "azurerm_monitor_metric_alert" "vcore_alert" {
+  name                = "vcore-alert"
+  resource_group_name = data.azurerm_resource_group.Dev-RG.name
+  scopes              = [azurerm.mssql_managed_instance.AZ-NAV-SQL.id]
+  description         = "Alert when SQL MI virtual core count exceeds 4"
+  severity            = 3
+  frequency           = "PT5M"
+  window_size         = "PT1H"
+  enabled             = true
+
+  criteria {
+    metric_namespace = "Microsoft.Sql/managedInstances"
+    metric_name      = "virtual_core_count"
+    aggregation      = "Average"
+    operator         = "GreaterThan"
+    threshold        = 4
+  }
+
+  action {
+    action_group_id = azurerm_monitor_action_group.email_alert_group.id
+  }
+
+  tags = {
+    environment = "production"
+  }
+}
+
