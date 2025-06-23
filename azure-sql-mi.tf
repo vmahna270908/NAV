@@ -130,7 +130,7 @@ resource "azurerm_mssql_managed_instance" "AZ-NAV-SQL" {
 #Creating the SQL MI Azure Monitor Alerts
 resource "azurerm_monitor_action_group" "email_alert_group" {
   name                = "sqlmi-alert-action-group"
-  resource_group_name = "Dev-RG"
+  resource_group_name = data.azurerm_resource_group.Dev-RG.name
   short_name          = "sqlmiAlert"
 
   email_receiver {
@@ -161,7 +161,7 @@ locals {
 resource "azurerm_monitor_metric_alert" "cpu_alerts" {
   for_each            = local.static_cpu_alerts
   name                = "cpu-alert-${each.key}"
-  resource_group_name = "Dev-RG"
+  resource_group_name = data.azurerm_resource_group.Dev-RG.name
   scopes              = [azurerm.mssql_managed_instance.AZ-NAV-SQL.id]
   description         = "Alert when SQL MI CPU usage exceeds ${each.key}%"
   severity            = each.value
@@ -189,8 +189,8 @@ resource "azurerm_monitor_metric_alert" "cpu_alerts" {
 resource "azurerm_monitor_metric_alert" "storage_alerts" {
   for_each            = local.static_storage_alerts
   name                = "storage-alert-${each.key}"
-  resource_group_name = "Dev-RG"
-  scopes              = [azurerm.mssql_managed_instance.AZ-NAV-SQL.id]
+  resource_group_name = data.azurerm_resource_group.Dev-RG.name
+  scopes = [azurerm.mssql_managed_instance.AZ-NAV-SQL.id]
   description         = "Alert when SQL MI storage usage exceeds ${each.key} MB"
   severity            = each.value
   frequency           = "PT5M"
@@ -217,7 +217,7 @@ resource "azurerm_monitor_metric_alert" "storage_alerts" {
 resource "azurerm_monitor_metric_alert" "dynamic_alerts" {
   for_each            = local.dynamic_metrics
   name                = "dynamic-alert-${each.key}"
-  resource_group_name = "Dev-RG"
+  resource_group_name = data.azurerm_resource_group.Dev-RG.name
   scopes              = [azurerm.mssql_managed_instance.AZ-NAV-SQL.id]
   description         = "Dynamic alert for ${each.value}"
   severity            = 2
@@ -245,7 +245,7 @@ resource "azurerm_monitor_metric_alert" "dynamic_alerts" {
 
 resource "azurerm_monitor_metric_alert" "vcore_alert" {
   name                = "vcore-alert"
-  resource_group_name = "Dev-RG"
+  resource_group_name = data.azurerm_resource_group.Dev-RG.name
   scopes              = [azurerm.mssql_managed_instance.AZ-NAV-SQL.id]
   description         = "Alert when SQL MI virtual core count exceeds 4"
   severity            = 3
