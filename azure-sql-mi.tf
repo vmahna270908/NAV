@@ -162,7 +162,7 @@ resource "azurerm_monitor_metric_alert" "cpu_alerts" {
   for_each            = local.static_cpu_alerts
   name                = "cpu-alert-${each.key}"
   resource_group_name = data.azurerm_resource_group.Dev-RG.name
-  scopes              = [azurerm.mssql_managed_instance.AZ-NAV-SQL.id]
+  scopes              = [data.azurerm.mssql_managed_instance.AZ-NAV-SQL.id]
   description         = "Alert when SQL MI CPU usage exceeds ${each.key}%"
   severity            = each.value
   frequency           = "PT5M"
