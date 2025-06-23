@@ -70,7 +70,7 @@ resource "azurerm_network_security_rule" "deny_all_inbound" {
 }
 resource "azurerm_network_security_rule" "allow_management_outbound" {
   name                        = "allow_management_outbound"
-  priority                    = 102
+  priority                    = 106
   direction                   = "Outbound"
   access                      = "Allow"
   protocol                    = "Tcp"
